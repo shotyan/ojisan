@@ -2,6 +2,8 @@
 #include "Engine/GameObject.h"
 #include "Engine/Model.h"
 
+class Text;
+
 //テストシーンを管理するクラス
 class TestScene : public GameObject
 {
@@ -21,5 +23,8 @@ public:
 
 	//開放
 	void Release() override;
-	
+	void AddScore(int score) { myScore += score; }
+private:
+	Text* pText_;
+	int myScore;
 };
