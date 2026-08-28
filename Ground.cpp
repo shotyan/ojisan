@@ -65,7 +65,7 @@ Ground::Ground(GameObject* parent)
 void Ground::Initialize()
 {
 	hModel_ = Model::Load("Map2.fbx");
-	hModelt_ = Model::Load("Brock.fbx");
+	model_t = Model::Load("Brock.fbx");
 	hEsaModel_ = Model::Load("Pawer Esa.fbx");
 	hPawerEsaModel_ = Model::Load("Oden.fbx");
 }
@@ -86,8 +86,8 @@ void Ground::Draw()
 			if (mapData_[j][i] == 1) {
 				Transform tr;
 				tr.position_ = { -9.0f + i * 2.0f, 0.0f, 9.0f - j * 2.0f };
-				Model::SetTransform(hModelt_, tr);
-				Model::Draw(hModelt_);
+				Model::SetTransform(model_t, tr);
+				Model::Draw(model_t);
 			}
 			if (objMap_[j][i] == 1) {
 				Transform tr2;

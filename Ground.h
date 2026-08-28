@@ -39,7 +39,7 @@ public:
 	}
 private:
 	int hModel_;
-	int hModelt_;
+	int model_t;
 	int hEsaModel_;
 	int hPawerEsaModel_;
 	std::vector<std::vector<int>> mapData_;
