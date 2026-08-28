@@ -124,7 +124,6 @@ void Player::Update()
 		}
 	}
 
-	
 	if (oldDir != pdirection) {
 		//‰ñ“]‚µ‚È‚«‚á‚¾‚æB
 		pstate = PLAYER_STATE::PLAYER_TURN;
@@ -200,5 +199,9 @@ void Player::Draw()
 
 
 void Player::Release()
+{
+}
+
+void Player::OnCollision(GameObject* pTarget)
 {
 }

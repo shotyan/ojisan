@@ -4,6 +4,7 @@
 #include "TestScene.h"
 #include "Ground.h"
 
+
 Food::Food(GameObject* parent)
 	:GameObject(nullptr, "Food"), type_(FOODTYPE_NORMAL),hModel_(-1),score_(0)
 {
@@ -23,7 +24,7 @@ void Food::Initialize()
 	}
 	else if (type_ == FoodType::FOODTYPE_POWER)
 	{
-		hModel_ = Model::Load("Ball.fbx");
+		hModel_ = Model::Load("Oden.fbx");
 		//score_ = 5;
 	}
 }
@@ -60,7 +61,7 @@ void Food::SetFoodType(FoodType type)
 	{
 		SphereCollider* collision = new SphereCollider(XMFLOAT3(0, 0.6, 0), 0.6f);
 		AddCollider(collision);
-		hModel_ = Model::Load("Ball.fbx");
+		hModel_ = Model::Load("Oden.fbx");
 		score_ = 5;
 	}
 }
