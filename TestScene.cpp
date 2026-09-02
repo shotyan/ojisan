@@ -12,7 +12,7 @@
 
 //コンストラクタ
 TestScene::TestScene(GameObject* parent)
-	: GameObject(parent, "TestScene"), myScore(0)
+	: GameObject(parent, "TestScene")
 {
 }
 
@@ -46,9 +46,9 @@ void TestScene::Update()
 void TestScene::Draw()
 {
 	std::string scrText;
-	char buffer[256];
-	sprintf(buffer, "SCORE:%010d", myScore);
-	scrText = "SCORE:" + myScore;
+	//char buffer[256];
+	//sprintf(buffer, "%010d", myScore);
+	scrText = "SCORE:" + std::to_string(myScore);
 	pText_->Draw(500, 50, scrText.c_str());
 }
 
