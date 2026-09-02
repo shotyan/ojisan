@@ -12,7 +12,7 @@
 
 //コンストラクタ
 TestScene::TestScene(GameObject* parent)
-	: GameObject(parent, "TestScene")
+	: GameObject(parent, "TestScene"),myScore(0)
 {
 }
 

@@ -49,7 +49,7 @@ Ground::Ground(GameObject* parent)
 			objMap_[y][x] = csvData.GetValue(x, y+mapHeight_);//csvの値をobjMap_に格納
 			if (objMap_[y][x] > 0)
 			{
-				Food* food = Instantiate<Food>(this/*->GetParent()*/);
+				Food* food = Instantiate<Food>(this);
 				food->SetPosition({ -9.0f + x * 2.0f, 0.0f, 9.0f - y * 2.0f });
 				if (objMap_[y][x] == 1)
 				{
