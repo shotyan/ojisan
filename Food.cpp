@@ -17,16 +17,6 @@ Food::~Food()
 void Food::Initialize()
 {
 	transform_.scale_ = { 0.3f,0.3f,0.3f };
-	if (type_ == FoodType::FOODTYPE_NORMAL)
-	{
-		hModel_ = Model::Load("Pawer esa.fbx");
-		//score_ = 1;
-	}
-	else if (type_ == FoodType::FOODTYPE_POWER)
-	{
-		hModel_ = Model::Load("Oden.fbx");
-		//score_ = 5;
-	}
 }
 
 void Food::Update()

@@ -168,9 +168,9 @@ void Player::Update()
 	pos = pos + SPEED * move;
 	XMStoreFloat3(&transform_.position_, pos);
 	XMFLOAT3 wpos = transform_.position_;
-	//
+	//壁オブジェクトに食い込んでたら戻す
 	gmap = ground_->GetMapData();
-	//
+	//マップの座標に変換する、めり込んでたら戻す
 	int mapx = (int)((wpos.x) + 10) / 2;
 	int mapz = (int)(10 - (wpos.z))/2;
 	if (gmap[mapz][mapx] == 1)
