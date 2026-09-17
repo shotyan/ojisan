@@ -190,25 +190,66 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 		// フォンシェーディングを想定したマテリアルバッファの抽出
 		FbxSurfaceMaterial* pMaterial = pNode->GetMaterial(i);
 
-		FbxSurfacePhong* pPhong = (FbxSurfacePhong*)pMaterial;
-
-		// 環境光＆拡散反射光＆鏡面反射光の反射成分値を取得
-		FbxDouble3  ambient = FbxDouble3(0, 0, 0);
-		FbxDouble3  diffuse = FbxDouble3(0, 0, 0);
-		FbxDouble3  specular = FbxDouble3(0, 0, 0);
-		// Ambientのプロパティを見つける
-		FbxProperty prop;
-		prop = pPhong->FindProperty(FbxSurfaceMaterial::sAmbient);
-		if (prop.IsValid())
+		if (pMaterial == nullptr)
 		{
-			//Debug::Log("Ambient OK", true);
-			ambient = pPhong->Ambient;
+			continue;
 		}
-		prop = pPhong->FindProperty(FbxSurfaceMaterial::sDiffuse);
-		if (prop.IsValid())
+
+		FbxDouble3 ambient = FbxDouble3(0, 0, 0);
+		FbxDouble3 diffuse = FbxDouble3(0, 0, 0);
+		FbxDouble3 specular = FbxDouble3(0, 0, 0);
+
+		if (pMaterial->GetClassId().Is(FbxSurfacePhong::ClassId))
 		{
-			//Debug::Log("Diffuse OK", true);
-			diffuse = pPhong->Diffuse;
+			FbxSurfacePhong* pPhong = (FbxSurfacePhong*)pMaterial;
+
+			FbxProperty prop;
+
+			prop = pPhong->FindProperty(FbxSurfaceMaterial::sAmbient);
+			if (prop.IsValid())
+			{
+				ambient = pPhong->Ambient;
+			}
+
+			prop = pPhong->FindProperty(FbxSurfaceMaterial::sDiffuse);
+			if (prop.IsValid())
+			{
+				diffuse = pPhong->Diffuse;
+			}
+
+			prop = pPhong->FindProperty(FbxSurfaceMaterial::sSpecular);
+			if (prop.IsValid())
+			{
+				specular = pPhong->Specular;
+			}
+
+			prop = pPhong->FindProperty(FbxSurfaceMaterial::sShininess);
+			if (prop.IsValid())
+			{
+				pMaterial_[i].shininess = (float)pPhong->Shininess;
+			}
+			else
+			{
+				pMaterial_[i].shininess = 1.0f;
+			}
+		}
+		else if (pMaterial->GetClassId().Is(FbxSurfaceLambert::ClassId))
+		{
+			FbxSurfaceLambert* pLambert = (FbxSurfaceLambert*)pMaterial;
+
+			FbxProperty prop;
+
+			prop = pLambert->FindProperty(FbxSurfaceMaterial::sAmbient);
+			if (prop.IsValid())
+			{
+				ambient = pLambert->Ambient;
+			}
+
+			prop = pLambert->FindProperty(FbxSurfaceMaterial::sDiffuse);
+			if (prop.IsValid())
+			{
+				diffuse = pLambert->Diffuse;
+			}
 		}
 
 
@@ -219,26 +260,6 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 		pMaterial_[i].shininess = 0;
 
 
-		if (pMaterial->GetClassId().Is(FbxSurfacePhong::ClassId))
-		{
-			prop = pPhong->FindProperty(FbxSurfaceMaterial::sSpecular);
-			if (prop.IsValid())
-			{
-				//Debug::Log("Specular OK", true);
-				specular = pPhong->Specular;
-			}
-
-			pMaterial_[i].specular = XMFLOAT4((float)specular[0], (float)specular[1], (float)specular[2], 1.0f);
-			prop = pPhong->FindProperty(FbxSurfaceMaterial::sShininess);
-			if (prop.IsValid())
-			{
-				//Debug::Log("Shininess OK", true);
-				pMaterial_[i].shininess = (float)pPhong->Shininess;
-			}
-			else
-				pMaterial_[i].shininess = (float)(1.0);
-
-		}
 		InitTexture(pMaterial, i);
 	}
 
