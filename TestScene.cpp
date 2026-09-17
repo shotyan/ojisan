@@ -4,6 +4,8 @@
 #include "Ground.h"
 #include "Engine\\Camera.h"
 #include "Engine\Text.h"
+#include "Engine/SceneManager.h"
+
 
 //namespace {
 //	int myScore = 10;
@@ -35,6 +37,13 @@ void TestScene::Initialize()
 //çXêV
 void TestScene::Update()
 {
+	Ground* ground = dynamic_cast<Ground*>(FindObject("Ground"));
+	auto esaCount = std::get<0>(ground->GetEsaCount());
+	if (esaCount == 0)
+	{
+		SceneManager* pSceneManager = (SceneManager*)(this->GetParent());
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	}
 }
 
 //Ç‚ÇÈÇ±Ç∆ÅI

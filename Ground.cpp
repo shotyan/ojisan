@@ -26,7 +26,7 @@ namespace
 }
 
 Ground::Ground(GameObject* parent)
-:GameObject(parent, "Ground"), hModel_(-1), mapWidth_(-1), mapHeight_(-1)
+	:GameObject(parent, "Ground"), hModel_(-1), mapWidth_(-1), mapHeight_(-1), esaCount_(0), normalEsaCount_(0), powerEsaCount_(0)
 {
 	CsvReader csvData;
 	csvData.Load("map.csv");//csvファイルを読み込み
@@ -51,13 +51,18 @@ Ground::Ground(GameObject* parent)
 			{
 				Food* food = Instantiate<Food>(this);
 				food->SetPosition({ -9.0f + x * 2.0f, 0.0f, 9.0f - y * 2.0f });
+
 				if (objMap_[y][x] == 1)
 				{
 					food->SetFoodType(FoodType::FOODTYPE_NORMAL);
+					normalEsaCount_++;
+					esaCount_++;
 				}
 				else if (objMap_[y][x] == 2)
 				{
 					food->SetFoodType(FoodType::FOODTYPE_POWER);
+					powerEsaCount_++;
+					esaCount_++;
 				}
 			}
 		}

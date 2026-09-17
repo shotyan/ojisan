@@ -93,19 +93,27 @@ namespace Image
 			return;
 		}
 
-		//同じモデルを他でも使っていないか
+		// そもそも登録されていなければ何もしない
+		if (_datas[handle] == nullptr)
+		{
+			return;
+		}
+
+		// 同じモデルを他でも使っていないか
 		bool isExist = false;
 		for (int i = 0; i < _datas.size(); i++)
 		{
-			//すでに開いている場合
-			if (_datas[i] != nullptr && i != handle && _datas[i]->pSprite == _datas[handle]->pSprite)
+			// すでに開いている場合
+			if (_datas[i] != nullptr &&
+				i != handle &&
+				_datas[i]->pSprite == _datas[handle]->pSprite)
 			{
 				isExist = true;
 				break;
 			}
 		}
 
-		//使ってなければモデル解放
+		// 使ってなければモデル解放
 		if (isExist == false)
 		{
 			SAFE_DELETE(_datas[handle]->pSprite);
